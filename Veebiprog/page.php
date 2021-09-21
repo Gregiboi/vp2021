@@ -10,7 +10,7 @@
 	if(isset($_POST["adjective_submit"])){
 		//echo "Klikiti!";
 		//<p>Tänane päev on tuuline.</p>
-		if(!emtpy($_POST["todays_adjective_input"])){
+		if(!empty($_POST["todays_adjective_input"])){
 			$todays_adjective_html = "<p>Tänane päev on" .$_POST["todays_adjective_input"] .".</p>";
 		} else {
 			$today_adjective_error = "Palun sisesta tänase kohta sobiv omadussõna!";
@@ -62,7 +62,7 @@
 			if(in_array($file_info["mime"], $allowed_photo_types)){
 				array_push($photo_files, $file_name);
 			} //if in_array lõpp
-		}	//if isset lõpp
+		} //if isset lõpp
 	} //foreach lõpp
 	
 	//echo $all_files;
@@ -80,9 +80,12 @@
 	}
 	$photo_list_html .= "</ul> \n";
 	
-	$photo_select_html = "\n" .<select name="photo_select">' ."\n";
+	$photo_select_html = "\n" .'<select name="photo_select">' ."\n";
 	for($i = 0;$i < $file_count;$i ++){
-		$photo_select_html .= '<option value=
+		$photo_select_html .= '<option value="' .$i .'">' .$photo_files[$i] ."</option> \n";
+	}
+	$photo_select_html .= "</select> \n";
+	
 ?>
 
 <!DOCTYPE html>
@@ -133,7 +136,11 @@ p.thicker {
 		echo $photo_html;
 		?>
 	<p>Lehe avamise hetk: <?php echo $weekday_names_et[$weekday_now - 1] .", " .$full_time_now .", " .$day_category .", " .$hour_category; ?>.</p>
-	<?php echo $photo_html; ?>
+	<?php 
+	echo $photo_html; 
+	echo $photo_list_html;
+	?>
+	
 </body>
 </html>
 
